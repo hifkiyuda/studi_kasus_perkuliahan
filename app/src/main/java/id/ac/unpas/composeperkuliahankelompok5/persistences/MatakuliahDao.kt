@@ -3,14 +3,13 @@ package id.ac.unpas.composeperkuliahankelompok5.persistences
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import id.ac.unpas.composeperkuliahankelompok5.model.Matakuliah
-import id.ac.unpas.functionalcompose.model.Matakuliah
 
 @Dao
 interface MatakuliahDao {
-    @Query("SELECT * FROM Matakuliah ORDER BY kode DESC")
+    @Query("SELECT * FROM Matakuliah ORDER BY kode ASC")
     fun loadAll(): LiveData<List<Matakuliah>>
 
-    @Query("SELECT * FROM Matakuliah ORDER BY kode DESC")
+    @Query("SELECT * FROM Matakuliah ORDER BY kode ASC")
     suspend fun getList(): List<Matakuliah>
 
     @Query("SELECT * FROM Matakuliah WHERE id = :id")

@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Matakuliah(
-    @PrimaryKey val kode: String,
+    @PrimaryKey val id: String,
+    val kode: String,
     val nama: String,
     val sks: Byte,
     val praktikum: Boolean,

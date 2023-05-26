@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import id.ac.unpas.composeperkuliahankelompok5.model.SetoranDosen
+import id.ac.unpas.composeperkuliahankelompok5.model.Dosen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -29,7 +29,7 @@ fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController :
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val viewModel = hiltViewModel<PengelolaanDosenViewModel>()
-    val items: List<SetoranDosen> by viewModel.list.observeAsState(initial = listOf())
+    val items: List<Dosen> by viewModel.list.observeAsState(initial = listOf())
 
     Column(modifier = modifier.fillMaxWidth()) {
         Button(onClick = {

@@ -1,7 +1,7 @@
 package id.ac.unpas.composeperkuliahankelompok5.model
 
 import  androidx.room.Entity
-import android.room.PrimaryKey
+import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity
@@ -16,4 +16,5 @@ data class Mahasiswa(
         PRIA,
         WANITA
     }
-)
+}
+

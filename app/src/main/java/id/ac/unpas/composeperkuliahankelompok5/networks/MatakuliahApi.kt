@@ -17,7 +17,8 @@ interface MatakuliahApi {
     @PUT("api/matakuliah/{id}")
     @Headers("Content-Type: application/json")
     suspend fun update(@Path("id") pathId: String,
-                       @Body item: Matakuliah):
+                       @Body item: Matakuliah
+    ):
             ApiResponse<MatakuliahSingleGetResponse>
     @DELETE("api/matakuliah/{id}")
     suspend fun delete(@Path("id") id: String):
