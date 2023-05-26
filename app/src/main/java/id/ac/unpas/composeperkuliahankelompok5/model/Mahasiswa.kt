@@ -13,8 +13,8 @@ data class Mahasiswa(
     val jenisKelamin: JenisKelamin
 ) {
     enum class JenisKelamin {
-        PRIA,
-        WANITA
+        LAKI_LAKI,
+        PEREMPUAN
     }
 }
 
