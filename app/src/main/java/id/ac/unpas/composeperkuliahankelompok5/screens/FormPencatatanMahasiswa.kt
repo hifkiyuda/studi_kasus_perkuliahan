@@ -1,14 +1,12 @@
 package id.ac.unpas.composeperkuliahankelompok5.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Purple700
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Teal200
 import kotlinx.coroutines.launch
@@ -33,7 +32,9 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
     val npm = remember { mutableStateOf(TextFieldValue("")) }
     val nama = remember { mutableStateOf(TextFieldValue("")) }
     val tanggalLahir = remember { mutableStateOf(TextFieldValue("")) }
-    val jenisKelamin = remember { mutableStateOf(TextFieldValue("")) }
+    val jeniskKelaminOptions = Mahasiswa.JenisKelamin.values()
+    val selectedJenisKelamin = remember { mutableStateOf(jeniskKelaminOptions[0]) }
+    val expanded = remember { mutableStateOf(false)}
     val scope = rememberCoroutineScope()
     Column( modifier = Modifier
         .padding(10.dp)
@@ -44,7 +45,9 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
             onValueChange = {
                 npm.value = it
             },
-            modifier = Modifier.padding(4.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(4.dp)
+                .fillMaxWidth(),
             placeholder = { Text(text = "xxxxxxxxx") }
         )
         OutlinedTextField(
@@ -53,7 +56,9 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
             onValueChange = {
                 nama.value = it
             },
-            modifier = Modifier.padding(4.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(4.dp)
+                .fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
                 capitalization =
                 KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text
@@ -66,7 +71,9 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
             onValueChange = {
                 tanggalLahir.value = it
             },
-            modifier = Modifier.padding(4.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(4.dp)
+                .fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
                 capitalization =
                 KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text
@@ -75,17 +82,27 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
         )
         OutlinedTextField(
             label = { Text(text = "Jenis Kelamin") },
-            value = jenisKelamin.value,
-            onValueChange = {
-                jenisKelamin.value = it
-            },
-            modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(
-                capitalization =
-                KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text
-            ),
-            placeholder = { Text(text = "XXXXX") }
+            value = selectedJenisKelamin.value.toString(),
+            onValueChange = { },
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { expanded.value = true },
+            readOnly = true
         )
+        DropdownMenu(
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false},
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            jeniskKelaminOptions.forEach{ option ->
+                DropdownMenuItem(onClick = {
+                    selectedJenisKelamin.value = option
+                    expanded.value = false
+                }) {
+                    Text(text = option.toString())
+                }
+            }
+        }
         val loginButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Purple700,
             contentColor = Teal200
@@ -94,7 +111,9 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
             backgroundColor = Teal200,
             contentColor = Purple700
         )
-        Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+        Row(modifier = Modifier
+            .padding(4.dp)
+            .fillMaxWidth()) {
             Button(modifier = Modifier.weight(5f), onClick = {
                 if (id == null) {
                     scope.launch {
@@ -102,7 +121,7 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
                             npm.value.text,
                             nama.value.text,
                             tanggalLahir.value.text,
-                            jenisKelamin.value.text
+                            selectedJenisKelamin.value.toString()
                         )
 
                     }
@@ -113,7 +132,7 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
                             npm.value.text,
                             nama.value.text,
                             tanggalLahir.value.text,
-                            jenisKelamin.value.text
+                            selectedJenisKelamin.value.toString()
                         )
                     }
                 }
@@ -131,7 +150,7 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
                 npm.value = TextFieldValue("")
                 nama.value = TextFieldValue("")
                 tanggalLahir.value = TextFieldValue("")
-                jenisKelamin.value = TextFieldValue("")
+                selectedJenisKelamin.value = jeniskKelaminOptions[0]
             }, colors = resetButtonColors) {
                 Text(
                     text = "Reset",
@@ -154,7 +173,7 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
                     npm.value = TextFieldValue(mahasiswa.npm)
                     nama.value = TextFieldValue(mahasiswa.nama)
                     tanggalLahir.value = TextFieldValue(mahasiswa.tanggalLahir)
-                    jenisKelamin.value = TextFieldValue(mahasiswa.jenisKelamin)
+                    selectedJenisKelamin.value = mahasiswa.jenisKelamin
                 }
             }
         }
