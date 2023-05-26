@@ -10,5 +10,10 @@ data class Dosen (
     val nama: String,
     val gelarDepan: String,
     val gelarBelakang: String,
-    val pendidikan: String
-)
+    val pendidikan: Pendidikan
+) {
+    enum class Pendidikan {
+        S2,
+        S3
+    }
+}
