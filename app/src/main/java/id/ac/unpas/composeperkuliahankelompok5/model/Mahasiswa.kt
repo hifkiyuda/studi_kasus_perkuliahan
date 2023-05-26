@@ -17,4 +17,3 @@ data class Mahasiswa(
         PEREMPUAN
     }
 }
-
