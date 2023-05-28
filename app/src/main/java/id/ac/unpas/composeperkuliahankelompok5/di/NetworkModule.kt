@@ -36,7 +36,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(
-                "https://setoran-sampah-api.gusdya.net/"
+                "https://ppm-api.gusdya.net/"
             )
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory())

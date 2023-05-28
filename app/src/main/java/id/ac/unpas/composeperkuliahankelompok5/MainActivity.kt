@@ -10,8 +10,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import dagger.hilt.android.AndroidEntryPoint
+import id.ac.unpas.composeperkuliahankelompok5.screens.PengelolaanMatakuliahScreen
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.ComposePerkuliahanKelompok5Theme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,22 +25,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    PengelolaanMatakuliahScreen()
                 }
             }
         }
     }
 }
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     ComposePerkuliahanKelompok5Theme {
-        Greeting("Android")
+        PengelolaanMatakuliahScreen()
     }
 }

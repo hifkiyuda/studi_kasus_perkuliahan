@@ -5,14 +5,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.semantics.Role.Companion.Checkbox
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,8 +31,8 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
     val viewModel = hiltViewModel<PengelolaanMatakuliahViewModel>()
     val kode = remember { mutableStateOf(TextFieldValue("")) }
     val nama = remember { mutableStateOf(TextFieldValue("")) }
-    val sks = remember { mutableStateOf(TextFieldValue("")) }
-    val praktikum = remember { mutableStateOf(TextFieldValue("")) }
+    val sks = remember { mutableStateOf(0.toByte()) }
+    val praktikum = remember { mutableStateOf(false) }
     val deskripsi = remember { mutableStateOf(TextFieldValue("")) }
     val scope = rememberCoroutineScope()
     Column( modifier = Modifier
@@ -55,38 +54,40 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
                 nama.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(
-                capitalization =
-                KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text
-            ),
+            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
             placeholder = { Text(text = "XXXXX") }
         )
         OutlinedTextField(
-            label = { Text(text = "SKS") },
-            value = sks.value,
-            onValueChange = {
-                sks.value = it
+            value = sks.value.toString(),
+            onValueChange = { newValue ->
+                val parsedValue = newValue.toByteOrNull()
+                sks.value = parsedValue ?: 0.toByte()
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(
-                capitalization =
-                KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text
-            ),
-            placeholder = { Text(text = "XXXXX") }
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         )
-        OutlinedTextField(
-            label = { Text(text = "Praktikum") },
-            value = praktikum.value,
-            onValueChange = {
-                praktikum.value = it
-            },
-            modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(
-                capitalization =
-                KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text
-            ),
-            placeholder = { Text(text = "XXXXX") }
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("Praktikum")
+            Checkbox(
+                checked = praktikum.value,
+                onCheckedChange = {
+                    praktikum.value = it
+                },
+                modifier = Modifier.padding(start = 8.dp)
+            )
+        }
+//        OutlinedTextField(
+//            label = { Text(text = "Praktikum") },
+//            value = praktikum.value,
+//            onValueChange = {
+//                praktikum.value = it
+//            },
+//            modifier = Modifier.padding(4.dp).fillMaxWidth(),
+//            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+//            placeholder = { Text(text = "Ya/Tidak") }
+//        )
         val loginButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Purple700,
             contentColor = Teal200
@@ -99,12 +100,12 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
             Button(modifier = Modifier.weight(5f), onClick = {
                 if (id == null) {
                     scope.launch {
-                        viewModel.insert(kode.value.text, nama.value.text, sks.value.text, praktikum.value.text, deskripsi.value.text)
+                        viewModel.insert(kode.value.text, nama.value.text, sks.value, praktikum.value, deskripsi.value.text)
 
                     }
                 } else {
                     scope.launch {
-                        viewModel.update(id, kode.value.text, nama.value.text, sks.value.text, praktikum.value.text, deskripsi.value.text)
+                        viewModel.update(id, kode.value.text, nama.value.text, sks.value, praktikum.value, deskripsi.value.text)
                     }
                 }
                 navController.navigate("pengelolaan-matakuliah")
@@ -120,8 +121,8 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
             Button(modifier = Modifier.weight(5f), onClick = {
                 kode.value = TextFieldValue("")
                 nama.value = TextFieldValue("")
-                sks.value = TextFieldValue("")
-                praktikum.value = TextFieldValue("")
+                sks.value = 0.toByte()
+                praktikum.value = false
                 deskripsi.value = TextFieldValue("")
             }, colors = resetButtonColors) {
                 Text(
@@ -141,13 +142,13 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
 
     if (id != null) {
         LaunchedEffect(scope) {
-            viewModel.loadItem(id) { setoranDosen ->
-                setoranDosen?.let {
-                    kode.value = TextFieldValue(setoranDosen.nidn)
-                    nama.value = TextFieldValue(setoranDosen.nama)
-                    sks.value = TextFieldValue(setoranDosen.gelarDepan)
-                    praktikum.value = TextFieldValue(setoranDosen.gelarBelakang)
-                    deskripsi.value = TextFieldValue(setoranDosen.pendidikan)
+            viewModel.loadItem(id) { matakuliah ->
+                matakuliah?.let {
+                    kode.value = TextFieldValue(matakuliah.kode)
+                    nama.value = TextFieldValue(matakuliah.nama)
+                    sks.value = matakuliah.sks
+                    praktikum.value = matakuliah.praktikum
+                    deskripsi.value = TextFieldValue(matakuliah.deskripsi)
                 }
             }
         }

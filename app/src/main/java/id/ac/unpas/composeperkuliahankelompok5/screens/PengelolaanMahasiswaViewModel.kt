@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa
 import id.ac.unpas.composeperkuliahankelompok5.repositories.MahasiswaRepository
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,10 +35,12 @@ class PengelolaanMahasiswaViewModel @Inject constructor(private val mahasiswaRep
             _list.postValue(list)
         })
     }
-    suspend fun insert(npm: String,
-                       nama: String,
-                       tanggalLahir: Date,
-                       jenisKelamin: Mahasiswa.JenisKelamin){
+    suspend fun insert(
+        npm: String,
+        nama: String,
+        tanggalLahir: String,
+        jenisKelamin: String
+    ){
         _isLoading.postValue(true)
         mahasiswaRepository.insert(npm, nama, tanggalLahir, jenisKelamin,
             onError = { item, message ->
@@ -54,11 +55,13 @@ class PengelolaanMahasiswaViewModel @Inject constructor(private val mahasiswaRep
         val item = mahasiswaRepository.find(id)
         onSuccess(item)
     }
-    suspend fun update(id: String,
-                       npm: String,
-                       nama: String,
-                       tanggalLahir: Date,
-                       jenisKelamin: Mahasiswa.JenisKelamin){
+    suspend fun update(
+        id: String,
+        npm: String,
+        nama: String,
+        tanggalLahir: String,
+        jenisKelamin: String
+    ){
         _isLoading.postValue(true)
         mahasiswaRepository.update(id, npm, nama, tanggalLahir, jenisKelamin,
             onError = { item, message ->

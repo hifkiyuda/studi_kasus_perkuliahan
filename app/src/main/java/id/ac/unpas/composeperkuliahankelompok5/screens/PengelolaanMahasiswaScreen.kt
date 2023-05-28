@@ -48,35 +48,19 @@ fun PengelolaanMahasiswaScreen(snackbarHostState: SnackbarHostState, navControll
                     }) {
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "NPM", fontSize = 14.sp)
-                        Text(
-                            text = item.npm, fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                        Text(text = item.npm, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Nama", fontSize = 14.sp)
-                        Text(
-                            text = item.nama, fontSize = 16.sp, fontWeight =
-                            FontWeight.Bold
-                        )
+                        Text(text = item.nama, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Tanggal Lahir", fontSize = 14.sp)
-                        Text(
-                            text = SimpleDateFormat("dd MMMM yyyy").format(item.tanggalLahir), fontSize = 16.sp, fontWeight =
-                            FontWeight.Bold
-                        )
+                        Text(text = "Tanggal lahir", fontSize = 14.sp)
+                        Text(text = item.tanggalLahir, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Jenis Kelamin", fontSize = 14.sp)
-                        Text(
-                            text = when (item.jenisKelamin) {
-                                JenisKelamin.LAKI_LAKI -> "Laki-laki"
-                                JenisKelamin.PEREMPUAN -> "Perempuan"
-                            },
-                            fontSize = 16.sp, fontWeight =
-                            FontWeight.Bold
-                        )
+                        Text(text = "Jenis kelamin", fontSize = 14.sp)
+                        Text(text = item.jenisKelamin, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
                 Divider(modifier = Modifier.fillMaxWidth())

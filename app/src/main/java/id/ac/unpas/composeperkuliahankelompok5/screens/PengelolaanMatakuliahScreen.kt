@@ -26,9 +26,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun PengelolaanMatakuliahScreen(snackbarHostState: SnackbarHostState, navController : NavHostController, modifier: Modifier = Modifier) {
+    val viewModel = hiltViewModel<PengelolaanMatakuliahViewModel>()
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val viewModel = hiltViewModel<PengelolaanMatakuliahViewModel>()
     val items: List<Matakuliah> by viewModel.list.observeAsState(initial = listOf())
 
     Column(modifier = modifier.fillMaxWidth()) {
@@ -42,45 +42,36 @@ fun PengelolaanMatakuliahScreen(snackbarHostState: SnackbarHostState, navControl
                 Row(modifier = Modifier
                     .padding(15.dp)
                     .fillMaxWidth().clickable {
-                        navController.navigate("edit-pengelolaan-matakuliah/${item.id}")
+                        navController.navigate("edit-pengelolaan-mahasiswa/${item.id}")
                     }) {
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Kode", fontSize = 14.sp)
-                        Text(text = item.kode, fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold)
+                        Text(text = item.kode, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Nama", fontSize = 14.sp)
-                        Text(text = item.nama, fontSize = 16.sp, fontWeight =
-                        FontWeight.Bold)
+                        Text(text = item.nama, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "SKS", fontSize = 14.sp)
-                        Text(text = item.sks.toString(), fontSize = 16.sp, fontWeight =
-                        FontWeight.Bold)
+                        Text(text = item.sks.toString(), fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Praktikum", fontSize = 14.sp)
-                        Text(text = if (item.praktikum) "Ya" else "Tidak", fontSize = 16.sp, fontWeight =
-                        FontWeight.Bold)
+                        Text(text = item.praktikum.toString(), fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
-                    Column(modifier = Modifier.padding(horizontal = 15.dp)) {
-                        Text(
-                            text = item.deskripsi,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Normal
-                        )
+                    Column(modifier = Modifier.weight(3f)) {
+                        Text(text = "Deskripsi", fontSize = 14.sp)
+                        Text(text = item.deskripsi, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
                 Divider(modifier = Modifier.fillMaxWidth())
             })
         }
     }
-
     LaunchedEffect(scope) {
         viewModel.loadItems()
     }
-
     viewModel.success.observe(LocalLifecycleOwner.current) {
         if (it) {
             scope.launch {
@@ -88,10 +79,10 @@ fun PengelolaanMatakuliahScreen(snackbarHostState: SnackbarHostState, navControl
             }
         }
     }
-
     viewModel.toast.observe(LocalLifecycleOwner.current) {
         scope.launch {
-            snackbarHostState.showSnackbar(it, actionLabel = "Tutup", duration = SnackbarDuration.Long)
+            snackbarHostState.showSnackbar(it, actionLabel =
+            "Tutup", duration = SnackbarDuration.Long)
         }
     }
 }

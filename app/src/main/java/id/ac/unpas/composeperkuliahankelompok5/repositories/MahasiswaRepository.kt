@@ -9,7 +9,6 @@ import com.skydoves.whatif.whatIfNotNull
 import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa
 import id.ac.unpas.composeperkuliahankelompok5.networks.MahasiswaApi
 import id.ac.unpas.composeperkuliahankelompok5.persistences.MahasiswaDao
-import java.util.*
 import javax.inject.Inject
 
 class MahasiswaRepository @Inject constructor(
@@ -44,8 +43,8 @@ class MahasiswaRepository @Inject constructor(
     suspend fun insert(
         npm: String,
         nama: String,
-        tanggalLahir: Date,
-        jenisKelamin: Mahasiswa.JenisKelamin,
+        tanggalLahir: String,
+        jenisKelamin: String,
         onSuccess: (Mahasiswa) -> Unit,
         onError: (Mahasiswa?, String) -> Unit
     ) {
@@ -72,8 +71,8 @@ class MahasiswaRepository @Inject constructor(
         id: String,
         npm: String,
         nama: String,
-        tanggalLahir: Date,
-        jenisKelamin: Mahasiswa.JenisKelamin,
+        tanggalLahir: String,
+        jenisKelamin: String,
         onSuccess: (Mahasiswa) -> Unit,
         onError: (Mahasiswa?, String) -> Unit
 

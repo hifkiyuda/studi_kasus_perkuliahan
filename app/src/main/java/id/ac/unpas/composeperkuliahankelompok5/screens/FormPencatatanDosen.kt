@@ -33,9 +33,10 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
     val nama = remember { mutableStateOf(TextFieldValue("")) }
     val gelarDepan = remember { mutableStateOf(TextFieldValue("")) }
     val gelarBelakang = remember { mutableStateOf(TextFieldValue("")) }
-    val pendidikanOptions = Dosen.Pendidikan.values()
-    val selectedPendidikan = remember { mutableStateOf(pendidikanOptions[0]) }
-    val expanded = remember { mutableStateOf(false) }
+    val pendidikan = remember { mutableStateOf(TextFieldValue("")) }
+//    val pendidikanOptions = Dosen.Pendidikan.values()
+//    val selectedPendidikan = remember { mutableStateOf(pendidikanOptions[0]) }
+//    val expanded = remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     Column(modifier = Modifier
@@ -57,8 +58,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                 nama.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(capitalization =
-            KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
+            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
             placeholder = { Text(text = "XXXXX") }
         )
         OutlinedTextField(
@@ -68,9 +68,8 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                 gelarDepan.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(capitalization =
-            KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "XXXXX") }
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            placeholder = { Text(text = "XX") }
         )
         OutlinedTextField(
             label = { Text(text = "Gelar Belakang") },
@@ -79,31 +78,40 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                 gelarBelakang.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(capitalization =
-            KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "XXXXX") }
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            placeholder = { Text(text = "XX") }
         )
         OutlinedTextField(
             label = { Text(text = "Pendidikan") },
-            value = selectedPendidikan.value.toString(),
-            onValueChange = { },
-            modifier = Modifier.fillMaxWidth().clickable { expanded.value = true },
-            readOnly = true
+            value = pendidikan.value,
+            onValueChange = {
+                pendidikan.value = it
+            },
+            modifier = Modifier.padding(4.dp).fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
+            placeholder = { Text(text = "XX") }
         )
-        DropdownMenu(
-            expanded = expanded.value,
-            onDismissRequest = { expanded.value = false },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            pendidikanOptions.forEach { option ->
-                DropdownMenuItem(onClick = {
-                    selectedPendidikan.value = option
-                    expanded.value = false
-                }) {
-                    Text(text = option.toString())
-                }
-            }
-        }
+//        OutlinedTextField(
+//            label = { Text(text = "Pendidikan") },
+//            value = selectedPendidikan.value.toString(),
+//            onValueChange = { },
+//            modifier = Modifier.fillMaxWidth().clickable { expanded.value = true },
+//            readOnly = true
+//        )
+//        DropdownMenu(
+//            expanded = expanded.value,
+//            onDismissRequest = { expanded.value = false },
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            pendidikanOptions.forEach { option ->
+//                DropdownMenuItem(onClick = {
+//                    selectedPendidikan.value = option
+//                    expanded.value = false
+//                }) {
+//                    Text(text = option.toString())
+//                }
+//            }
+//        }
         val loginButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Purple700,
             contentColor = Teal200
@@ -116,12 +124,12 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             Button(modifier = Modifier.weight(5f), onClick = {
                 if (id == null) {
                     scope.launch {
-                        viewModel.insert(nidn.value.text, nama.value.text, gelarDepan.value.text, gelarBelakang.value.text, selectedPendidikan.value.toString())
+                        viewModel.insert(nidn.value.text, nama.value.text, gelarDepan.value.text, gelarBelakang.value.text, pendidikan.value.text)
 
                     }
                 } else {
                     scope.launch {
-                        viewModel.update(id, nidn.value.text, nama.value.text, gelarDepan.value.text, gelarBelakang.value.text, selectedPendidikan.value.toString())
+                        viewModel.update(id, nidn.value.text, nama.value.text, gelarDepan.value.text, gelarBelakang.value.text, pendidikan.value.text)
                     }
                 }
                 navController.navigate("pengelolaan-dosen")
@@ -139,7 +147,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                 nama.value = TextFieldValue("")
                 gelarDepan.value = TextFieldValue("")
                 gelarBelakang.value = TextFieldValue("")
-                selectedPendidikan.value = pendidikanOptions[0]
+                pendidikan.value = TextFieldValue("")
             }, colors = resetButtonColors) {
                 Text(
                     text = "Reset",
@@ -164,7 +172,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                     nama.value = TextFieldValue(dosen.nama)
                     gelarDepan.value = TextFieldValue(dosen.gelarDepan)
                     gelarBelakang.value = TextFieldValue(dosen.gelarBelakang)
-                    selectedPendidikan.value = dosen.pendidikan
+                    pendidikan.value = TextFieldValue(dosen.pendidikan)
                 }
             }
         }
