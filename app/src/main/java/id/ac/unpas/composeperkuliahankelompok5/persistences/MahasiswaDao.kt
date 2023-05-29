@@ -6,10 +6,10 @@ import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa
 
 @Dao
 interface MahasiswaDao {
-    @Query("SELECT * FROM Mahasiswa ORDER BY npm ASC")
+    @Query("SELECT * FROM Mahasiswa")
     fun loadAll(): LiveData<List<Mahasiswa>>
 
-    @Query("SELECT * FROM Mahasiswa ORDER BY npm ASC")
+    @Query("SELECT * FROM Mahasiswa")
     suspend fun getList(): List<Mahasiswa>
 
     @Query("SELECT * FROM Mahasiswa WHERE id = :id")

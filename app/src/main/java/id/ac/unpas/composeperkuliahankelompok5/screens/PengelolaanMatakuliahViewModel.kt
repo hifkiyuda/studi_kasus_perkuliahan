@@ -39,7 +39,7 @@ class PengelolaanMatakuliahViewModel @Inject constructor(private val matakuliahR
     suspend fun insert(kode: String,
                        nama: String,
                        sks: Byte,
-                       praktikum: Boolean,
+                       praktikum: Int,
                        deskripsi: String){
         _isLoading.postValue(true)
         matakuliahRepository.insert(kode, nama, sks, praktikum, deskripsi,
@@ -59,7 +59,7 @@ class PengelolaanMatakuliahViewModel @Inject constructor(private val matakuliahR
                        kode: String,
                        nama: String,
                        sks: Byte,
-                       praktikum: Boolean,
+                       praktikum: Int,
                        deskripsi: String){
         _isLoading.postValue(true)
         matakuliahRepository.update(id, kode, nama, sks, praktikum, deskripsi,

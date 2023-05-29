@@ -47,7 +47,7 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
                 npm.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            placeholder = { Text(text = "xxxxxxxxx") }
+            placeholder = { Text(text = "Masukkan NPM") }
         )
         OutlinedTextField(
             label = { Text(text = "Nama") },
@@ -57,7 +57,7 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "XXXXX") }
+            placeholder = { Text(text = "Masukkan nama") }
         )
         OutlinedTextField(
             label = { Text(text = "Tanggal Lahir") },
@@ -76,9 +76,8 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
                 jenisKelamin.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(
-                capitalization = KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "XXXXX") }
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            placeholder = { Text(text = "Laki-laki/Perempuan") }
         )
 //        OutlinedTextField(
 //            label = { Text(text = "Jenis Kelamin") },
@@ -103,7 +102,7 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
 //                }
 //            }
 //        }
-        val loginButtonColors = ButtonDefaults.buttonColors(
+        val simpanButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Purple700,
             contentColor = Teal200
         )
@@ -126,7 +125,7 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
                     }
                 }
                 navController.navigate("pengelolaan-mahasiswa")
-            }, colors = loginButtonColors) {
+            }, colors = simpanButtonColors) {
                 Text(
                     text = buttonLabel,
                     style = TextStyle(
@@ -161,8 +160,8 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
                 mahasiswa?.let {
                     npm.value = TextFieldValue(mahasiswa.npm)
                     nama.value = TextFieldValue(mahasiswa.nama)
-                    tanggalLahir.value = TextFieldValue(mahasiswa.tanggalLahir)
-                    jenisKelamin.value = TextFieldValue(mahasiswa.jenisKelamin)
+                    tanggalLahir.value = TextFieldValue(mahasiswa.tanggal_lahir)
+                    jenisKelamin.value = TextFieldValue(mahasiswa.jenis_kelamin)
                 }
             }
         }

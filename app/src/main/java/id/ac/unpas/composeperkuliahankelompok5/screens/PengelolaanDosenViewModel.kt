@@ -37,11 +37,11 @@ class PengelolaanDosenViewModel @Inject constructor(private val dosenRepository:
     }
     suspend fun insert(nidn: String,
                        nama: String,
-                       gelarDepan: String,
-                       gelarBelakang: String,
+                       gelar_depan: String,
+                       gelar_belakang: String,
                        pendidikan: String){
         _isLoading.postValue(true)
-        dosenRepository.insert(nidn, nama, gelarDepan, gelarBelakang, pendidikan,
+        dosenRepository.insert(nidn, nama, gelar_depan, gelar_belakang, pendidikan,
             onError = { item, message ->
                 _toast.postValue(message)
                 _isLoading.postValue(false)
@@ -57,11 +57,11 @@ class PengelolaanDosenViewModel @Inject constructor(private val dosenRepository:
     suspend fun update(id: String,
                        nidn: String,
                        nama: String,
-                       gelarDepan: String,
-                       gelarBelakang: String,
+                       gelar_depan: String,
+                       gelar_belakang: String,
                        pendidikan: String){
         _isLoading.postValue(true)
-        dosenRepository.update(id, nidn, nama, gelarDepan, gelarBelakang, pendidikan,
+        dosenRepository.update(id, nidn, nama, gelar_depan, gelar_belakang, pendidikan,
             onError = { item, message ->
                 _toast.postValue(message)
                 _isLoading.postValue(false)

@@ -49,7 +49,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                 nidn.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            placeholder = { Text(text = "xxxxxxxxx") }
+            placeholder = { Text(text = "Masukkan NIDN") }
         )
         OutlinedTextField(
             label = { Text(text = "Nama") },
@@ -59,7 +59,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "XXXXX") }
+            placeholder = { Text(text = "Masukkan nama") }
         )
         OutlinedTextField(
             label = { Text(text = "Gelar Depan") },
@@ -69,7 +69,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "XX") }
+            placeholder = { Text(text = "Contoh: Dr") }
         )
         OutlinedTextField(
             label = { Text(text = "Gelar Belakang") },
@@ -79,7 +79,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "XX") }
+            placeholder = { Text(text = "Contoh: MT") }
         )
         OutlinedTextField(
             label = { Text(text = "Pendidikan") },
@@ -89,7 +89,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "XX") }
+            placeholder = { Text(text = "Contoh: S2") }
         )
 //        OutlinedTextField(
 //            label = { Text(text = "Pendidikan") },
@@ -112,7 +112,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
 //                }
 //            }
 //        }
-        val loginButtonColors = ButtonDefaults.buttonColors(
+        val simpanButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Purple700,
             contentColor = Teal200
         )
@@ -133,7 +133,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                     }
                 }
                 navController.navigate("pengelolaan-dosen")
-            }, colors = loginButtonColors) {
+            }, colors = simpanButtonColors) {
                 Text(
                     text = buttonLabel,
                     style = TextStyle(
@@ -170,8 +170,8 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                 dosen?.let {
                     nidn.value = TextFieldValue(dosen.nidn)
                     nama.value = TextFieldValue(dosen.nama)
-                    gelarDepan.value = TextFieldValue(dosen.gelarDepan)
-                    gelarBelakang.value = TextFieldValue(dosen.gelarBelakang)
+                    gelarDepan.value = TextFieldValue(dosen.gelar_depan)
+                    gelarBelakang.value = TextFieldValue(dosen.gelar_belakang)
                     pendidikan.value = TextFieldValue(dosen.pendidikan)
                 }
             }

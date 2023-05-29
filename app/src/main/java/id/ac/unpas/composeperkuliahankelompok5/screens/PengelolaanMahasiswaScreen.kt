@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa
-import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa.JenisKelamin
 import kotlinx.coroutines.launch
 
 @Composable
@@ -56,11 +55,11 @@ fun PengelolaanMahasiswaScreen(snackbarHostState: SnackbarHostState, navControll
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Tanggal lahir", fontSize = 14.sp)
-                        Text(text = item.tanggalLahir, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = item.tanggal_lahir, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Jenis kelamin", fontSize = 14.sp)
-                        Text(text = item.jenisKelamin, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = item.jenis_kelamin, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
                 Divider(modifier = Modifier.fillMaxWidth())

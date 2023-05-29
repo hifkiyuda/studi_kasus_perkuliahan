@@ -38,11 +38,11 @@ class PengelolaanMahasiswaViewModel @Inject constructor(private val mahasiswaRep
     suspend fun insert(
         npm: String,
         nama: String,
-        tanggalLahir: String,
-        jenisKelamin: String
+        tanggal_lahir: String,
+        jenis_kelamin: String,
     ){
         _isLoading.postValue(true)
-        mahasiswaRepository.insert(npm, nama, tanggalLahir, jenisKelamin,
+        mahasiswaRepository.insert(npm, nama, tanggal_lahir, jenis_kelamin,
             onError = { item, message ->
                 _toast.postValue(message)
                 _isLoading.postValue(false)
@@ -59,11 +59,11 @@ class PengelolaanMahasiswaViewModel @Inject constructor(private val mahasiswaRep
         id: String,
         npm: String,
         nama: String,
-        tanggalLahir: String,
-        jenisKelamin: String
+        tanggal_lahir: String,
+        jenis_kelamin: String,
     ){
         _isLoading.postValue(true)
-        mahasiswaRepository.update(id, npm, nama, tanggalLahir, jenisKelamin,
+        mahasiswaRepository.update(id, npm, nama, tanggal_lahir, jenis_kelamin,
             onError = { item, message ->
                 _toast.postValue(message)
                 _isLoading.postValue(false)

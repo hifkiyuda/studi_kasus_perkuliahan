@@ -16,7 +16,6 @@ class DosenRepository @Inject constructor(
     private val api: DosenApi,
     private val dao: DosenDao
 ) : Repository {
-
     suspend fun loadItems(
         onSuccess: (List<Dosen>) -> Unit,
         onError: (List<Dosen>, String) -> Unit
@@ -31,86 +30,73 @@ class DosenRepository @Inject constructor(
                 }
             }
         }
-
             .suspendOnError {
                 onError(list, message())
             }
             .suspendOnException {
                 onError(list, message())
             }
-
     }
 
     suspend fun insert(
         nidn: String,
         nama: String,
-        gelarDepan: String,
-        gelarBelakang: String,
+        gelar_depan: String,
+        gelar_belakang: String,
         pendidikan: String,
         onSuccess: (Dosen) -> Unit,
         onError: (Dosen?, String) -> Unit
     ) {
         val id = uuid4().toString()
-        val item = Dosen(id, nidn, nama, gelarDepan, gelarBelakang, pendidikan)
+        val item = Dosen(id, nidn, nama, gelar_depan, gelar_belakang, pendidikan)
         dao.insertAll(item)
         api.insert(item)
-
             .suspendOnSuccess {
                 onSuccess(item)
             }
-
             .suspendOnError {
                 onError(item, message())
             }
-
             .suspendOnException {
                 onError(item, message())
             }
-
     }
 
     suspend fun update(
         id: String,
         nidn: String,
         nama: String,
-        gelarDepan: String,
-        gelarBelakang: String,
+        gelar_depan: String,
+        gelar_belakang: String,
         pendidikan: String,
         onSuccess: (Dosen) -> Unit,
         onError: (Dosen?, String) -> Unit
     ) {
-        val item = Dosen(id, nidn, nama, gelarDepan, gelarBelakang, pendidikan)
+        val item = Dosen(id, nidn, nama, gelar_depan, gelar_belakang, pendidikan)
         dao.insertAll(item)
         api.update(id, item)
-
             .suspendOnSuccess {
                 onSuccess(item)
             }
-
             .suspendOnError {
                 onError(item, message())
             }
-
             .suspendOnException {
                 onError(item, message())
             }
-
     }
 
     suspend fun delete(id: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
         dao.delete(id)
         api.delete(id)
-
             .suspendOnSuccess {
                 data.whatIfNotNull {
                     onSuccess()
                 }
             }
-
             .suspendOnError {
                 onError(message())
             }
-
             .suspendOnException {
                 onError(message())
             }

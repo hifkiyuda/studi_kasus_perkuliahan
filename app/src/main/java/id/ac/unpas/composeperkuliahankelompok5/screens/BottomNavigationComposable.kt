@@ -1,7 +1,5 @@
 package id.ac.unpas.composeperkuliahankelompok5.screens
 
-import android.icu.text.CaseMap.Title
-import android.view.Menu
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -14,8 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+
 @Composable
-fun BottomNAvigationComposable(title: String, onClick: (Menu) -> Unit)
+fun BottomNavigationComposable(title : String, onClick: (Menu) -> Unit)
 {
     val tabs = Menu.values()
     BottomNavigation(
@@ -31,7 +30,7 @@ fun BottomNAvigationComposable(title: String, onClick: (Menu) -> Unit)
                     Icon(
                         tab.icon,
                         modifier =
-                        Modifier.height(40.dp).width(40.dp),
+                        Modifier.height(32.dp).width(32.dp),
                         contentDescription = null,
                         tint = Color.White
                     )
@@ -41,4 +40,7 @@ fun BottomNAvigationComposable(title: String, onClick: (Menu) -> Unit)
                 unselectedContentColor =
                 LocalContentColor.current,
                 modifier = Modifier.padding(8.dp)
+            )
+        }
+    }
 }

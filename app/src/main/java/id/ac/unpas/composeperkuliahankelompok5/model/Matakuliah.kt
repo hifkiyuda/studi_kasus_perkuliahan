@@ -9,7 +9,6 @@ data class Matakuliah(
     val kode: String,
     val nama: String,
     val sks: Byte,
-    val praktikum: Boolean,
+    val praktikum: Int,
     val deskripsi: String
-
 )

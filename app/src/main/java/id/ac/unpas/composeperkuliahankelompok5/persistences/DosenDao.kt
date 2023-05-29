@@ -6,10 +6,10 @@ import id.ac.unpas.composeperkuliahankelompok5.model.Dosen
 
 @Dao
 interface DosenDao {
-    @Query("SELECT * FROM Dosen ORDER BY nidn ASC")
+    @Query("SELECT * FROM Dosen")
     fun loadAll(): LiveData<List<Dosen>>
 
-    @Query("SELECT * FROM Dosen ORDER BY nidn ASC")
+    @Query("SELECT * FROM Dosen")
     suspend fun getList(): List<Dosen>
 
     @Query("SELECT * FROM Dosen WHERE id = :id")

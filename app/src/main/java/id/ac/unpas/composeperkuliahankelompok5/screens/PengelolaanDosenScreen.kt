@@ -54,11 +54,11 @@ fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController :
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Gelar Depan", fontSize = 14.sp)
-                        Text(text = item.gelarDepan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = item.gelar_depan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Gelar Belakang", fontSize = 14.sp)
-                        Text(text = item.gelarBelakang, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = item.gelar_belakang, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Pendidikan", fontSize = 14.sp)
