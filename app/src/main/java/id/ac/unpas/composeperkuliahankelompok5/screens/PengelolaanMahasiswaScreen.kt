@@ -17,23 +17,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
+import java.text.SimpleDateFormat
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import id.ac.unpas.composeperkuliahankelompok5.model.Dosen
+import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa
 import kotlinx.coroutines.launch
 
 @Composable
-fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController : NavHostController, modifier: Modifier = Modifier) {
+fun PengelolaanMahasiswaScreen(snackbarHostState: SnackbarHostState, navController : NavHostController, modifier: Modifier = Modifier) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val viewModel = hiltViewModel<PengelolaanDosenViewModel>()
-    val items: List<Dosen> by viewModel.list.observeAsState(initial = listOf())
+    val viewModel = hiltViewModel<PengelolaanMahasiswaViewModel>()
+    val items: List<Mahasiswa> by viewModel.list.observeAsState(initial = listOf())
 
     Column(modifier = modifier.fillMaxWidth()) {
         Button(onClick = {
-            navController.navigate("tambah-pengelolaan-dosen")
+            navController.navigate("tambah-pengelolaan-mahasiswa")
         }) {
             Text(text = "Tambah")
         }
@@ -42,27 +43,23 @@ fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController :
                 Row(modifier = Modifier
                     .padding(15.dp)
                     .fillMaxWidth().clickable {
-                        navController.navigate("edit-pengelolaan-dosen/${item.id}")
+                        navController.navigate("edit-pengelolaan-mahasiswa/${item.id}")
                     }) {
                     Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "NIDN", fontSize = 14.sp)
-                        Text(text = item.nidn, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "NPM", fontSize = 14.sp)
+                        Text(text = item.npm, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Nama", fontSize = 14.sp)
                         Text(text = item.nama, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Gelar Depan", fontSize = 14.sp)
-                        Text(text = item.gelar_depan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "Tanggal lahir", fontSize = 14.sp)
+                        Text(text = item.tanggal_lahir, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Gelar Belakang", fontSize = 14.sp)
-                        Text(text = item.gelar_belakang, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    }
-                    Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Pendidikan", fontSize = 14.sp)
-                        Text(text = item.pendidikan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "Jenis kelamin", fontSize = 14.sp)
+                        Text(text = item.jenis_kelamin, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
                 Divider(modifier = Modifier.fillMaxWidth())
@@ -84,7 +81,11 @@ fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController :
 
     viewModel.toast.observe(LocalLifecycleOwner.current) {
         scope.launch {
-            snackbarHostState.showSnackbar(it, actionLabel = "Tutup", duration = SnackbarDuration.Long)
-            }
+            snackbarHostState.showSnackbar(
+                it,
+                actionLabel = "Tutup",
+                duration = SnackbarDuration.Long
+            )
         }
+    }
 }

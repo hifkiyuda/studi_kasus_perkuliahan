@@ -19,37 +19,35 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import id.ac.unpas.composeperkuliahankelompok5.model.Dosen
+import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Purple700
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Teal200
 import kotlinx.coroutines.launch
 
 @Composable
-fun FormPencatatanDosen (navController: NavHostController, id: String? = null, modifier: Modifier = Modifier) {
+fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = null, modifier: Modifier = Modifier) {
     val isLoading = remember { mutableStateOf(false) }
     val buttonLabel = if (isLoading.value) "Mohon tunggu..." else "Simpan"
-    val viewModel = hiltViewModel<PengelolaanDosenViewModel>()
-    val nidn = remember { mutableStateOf(TextFieldValue("")) }
+    val viewModel = hiltViewModel<PengelolaanMahasiswaViewModel>()
+    val npm = remember { mutableStateOf(TextFieldValue("")) }
     val nama = remember { mutableStateOf(TextFieldValue("")) }
-    val gelarDepan = remember { mutableStateOf(TextFieldValue("")) }
-    val gelarBelakang = remember { mutableStateOf(TextFieldValue("")) }
-    val pendidikan = remember { mutableStateOf(TextFieldValue("")) }
-//    val pendidikanOptions = Dosen.Pendidikan.values()
-//    val selectedPendidikan = remember { mutableStateOf(pendidikanOptions[0]) }
-//    val expanded = remember { mutableStateOf(false) }
+    val tanggalLahir = remember { mutableStateOf(TextFieldValue("")) }
+    val jenisKelamin = remember { mutableStateOf(TextFieldValue("")) }
+//    val jenisKelaminOptions = Mahasiswa.JenisKelamin.values()
+//    val selectedJenisKelamin = remember { mutableStateOf(jenisKelaminOptions[0]) }
+//    val expanded = remember { mutableStateOf(false)}
     val scope = rememberCoroutineScope()
-
-    Column(modifier = Modifier
+    Column( modifier = Modifier
         .padding(10.dp)
         .fillMaxWidth()) {
         OutlinedTextField(
-            label = { Text(text = "NIDN") },
-            value = nidn.value,
+            label = { Text(text = "NPM") },
+            value = npm.value,
             onValueChange = {
-                nidn.value = it
+                npm.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            placeholder = { Text(text = "Masukkan NIDN") }
+            placeholder = { Text(text = "Masukkan NPM") }
         )
         OutlinedTextField(
             label = { Text(text = "Nama") },
@@ -62,50 +60,42 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             placeholder = { Text(text = "Masukkan nama") }
         )
         OutlinedTextField(
-            label = { Text(text = "Gelar Depan") },
-            value = gelarDepan.value,
+            label = { Text(text = "Tanggal Lahir") },
+            value = tanggalLahir.value,
             onValueChange = {
-                gelarDepan.value = it
+                tanggalLahir.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "Contoh: Dr") }
+            placeholder = { Text(text = "yyyy-mm-dd") }
         )
         OutlinedTextField(
-            label = { Text(text = "Gelar Belakang") },
-            value = gelarBelakang.value,
+            label = { Text(text = "Jenis Kelamin") },
+            value = jenisKelamin.value,
             onValueChange = {
-                gelarBelakang.value = it
+                jenisKelamin.value = it
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "Contoh: MT") }
-        )
-        OutlinedTextField(
-            label = { Text(text = "Pendidikan") },
-            value = pendidikan.value,
-            onValueChange = {
-                pendidikan.value = it
-            },
-            modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "Contoh: S2") }
+            placeholder = { Text(text = "Laki-laki/Perempuan") }
         )
 //        OutlinedTextField(
-//            label = { Text(text = "Pendidikan") },
-//            value = selectedPendidikan.value.toString(),
+//            label = { Text(text = "Jenis Kelamin") },
+//            value = selectedJenisKelamin.value.toString(),
 //            onValueChange = { },
-//            modifier = Modifier.fillMaxWidth().clickable { expanded.value = true },
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .clickable { expanded.value = true },
 //            readOnly = true
 //        )
 //        DropdownMenu(
 //            expanded = expanded.value,
-//            onDismissRequest = { expanded.value = false },
+//            onDismissRequest = { expanded.value = false},
 //            modifier = Modifier.fillMaxWidth()
 //        ) {
-//            pendidikanOptions.forEach { option ->
+//            jenisKelaminOptions.forEach{ option ->
 //                DropdownMenuItem(onClick = {
-//                    selectedPendidikan.value = option
+//                    selectedJenisKelamin.value = option
 //                    expanded.value = false
 //                }) {
 //                    Text(text = option.toString())
@@ -120,19 +110,21 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             backgroundColor = Teal200,
             contentColor = Purple700
         )
-        Row (modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+        Row(modifier = Modifier
+            .padding(4.dp)
+            .fillMaxWidth()) {
             Button(modifier = Modifier.weight(5f), onClick = {
                 if (id == null) {
                     scope.launch {
-                        viewModel.insert(nidn.value.text, nama.value.text, gelarDepan.value.text, gelarBelakang.value.text, pendidikan.value.text)
+                        viewModel.insert(npm.value.text, nama.value.text, tanggalLahir.value.text, jenisKelamin.value.text)
 
                     }
                 } else {
                     scope.launch {
-                        viewModel.update(id, nidn.value.text, nama.value.text, gelarDepan.value.text, gelarBelakang.value.text, pendidikan.value.text)
+                        viewModel.update(id, npm.value.text, nama.value.text, tanggalLahir.value.text, jenisKelamin.value.text)
                     }
                 }
-                navController.navigate("pengelolaan-dosen")
+                navController.navigate("pengelolaan-mahasiswa")
             }, colors = simpanButtonColors) {
                 Text(
                     text = buttonLabel,
@@ -143,11 +135,10 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                 )
             }
             Button(modifier = Modifier.weight(5f), onClick = {
-                nidn.value = TextFieldValue("")
+                npm.value = TextFieldValue("")
                 nama.value = TextFieldValue("")
-                gelarDepan.value = TextFieldValue("")
-                gelarBelakang.value = TextFieldValue("")
-                pendidikan.value = TextFieldValue("")
+                tanggalLahir.value = TextFieldValue("")
+                jenisKelamin.value = TextFieldValue("")
             }, colors = resetButtonColors) {
                 Text(
                     text = "Reset",
@@ -159,20 +150,18 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             }
         }
     }
-
     viewModel.isLoading.observe(LocalLifecycleOwner.current) {
         isLoading.value = it
     }
 
     if (id != null) {
         LaunchedEffect(scope) {
-            viewModel.loadItem(id) { dosen ->
-                dosen?.let {
-                    nidn.value = TextFieldValue(dosen.nidn)
-                    nama.value = TextFieldValue(dosen.nama)
-                    gelarDepan.value = TextFieldValue(dosen.gelar_depan)
-                    gelarBelakang.value = TextFieldValue(dosen.gelar_belakang)
-                    pendidikan.value = TextFieldValue(dosen.pendidikan)
+            viewModel.loadItem(id) { mahasiswa ->
+                mahasiswa?.let {
+                    npm.value = TextFieldValue(mahasiswa.npm)
+                    nama.value = TextFieldValue(mahasiswa.nama)
+                    tanggalLahir.value = TextFieldValue(mahasiswa.tanggal_lahir)
+                    jenisKelamin.value = TextFieldValue(mahasiswa.jenis_kelamin)
                 }
             }
         }

@@ -21,19 +21,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import id.ac.unpas.composeperkuliahankelompok5.model.Dosen
+import id.ac.unpas.composeperkuliahankelompok5.model.Matakuliah
 import kotlinx.coroutines.launch
 
 @Composable
-fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController : NavHostController, modifier: Modifier = Modifier) {
+fun PengelolaanMatakuliahScreen(snackbarHostState: SnackbarHostState, navController : NavHostController, modifier: Modifier = Modifier) {
+    val viewModel = hiltViewModel<PengelolaanMatakuliahViewModel>()
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val viewModel = hiltViewModel<PengelolaanDosenViewModel>()
-    val items: List<Dosen> by viewModel.list.observeAsState(initial = listOf())
+    val items: List<Matakuliah> by viewModel.list.observeAsState(initial = listOf())
 
     Column(modifier = modifier.fillMaxWidth()) {
         Button(onClick = {
-            navController.navigate("tambah-pengelolaan-dosen")
+            navController.navigate("tambah-pengelolaan-matakuliah")
         }) {
             Text(text = "Tambah")
         }
@@ -42,38 +42,36 @@ fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController :
                 Row(modifier = Modifier
                     .padding(15.dp)
                     .fillMaxWidth().clickable {
-                        navController.navigate("edit-pengelolaan-dosen/${item.id}")
+                        navController.navigate("edit-pengelolaan-mahasiswa/${item.id}")
                     }) {
                     Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "NIDN", fontSize = 14.sp)
-                        Text(text = item.nidn, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "Kode", fontSize = 14.sp)
+                        Text(text = item.kode, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Nama", fontSize = 14.sp)
                         Text(text = item.nama, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Gelar Depan", fontSize = 14.sp)
-                        Text(text = item.gelar_depan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "SKS", fontSize = 14.sp)
+                        Text(text = item.sks.toString(), fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Gelar Belakang", fontSize = 14.sp)
-                        Text(text = item.gelar_belakang, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "Praktikum", fontSize = 14.sp)
+                        Text(text = item.praktikum.toString(), fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                     Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Pendidikan", fontSize = 14.sp)
-                        Text(text = item.pendidikan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "Deskripsi", fontSize = 14.sp)
+                        Text(text = item.deskripsi, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
                 Divider(modifier = Modifier.fillMaxWidth())
             })
         }
     }
-
     LaunchedEffect(scope) {
         viewModel.loadItems()
     }
-
     viewModel.success.observe(LocalLifecycleOwner.current) {
         if (it) {
             scope.launch {
@@ -81,10 +79,10 @@ fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController :
             }
         }
     }
-
     viewModel.toast.observe(LocalLifecycleOwner.current) {
         scope.launch {
-            snackbarHostState.showSnackbar(it, actionLabel = "Tutup", duration = SnackbarDuration.Long)
-            }
+            snackbarHostState.showSnackbar(it, actionLabel =
+            "Tutup", duration = SnackbarDuration.Long)
         }
+    }
 }

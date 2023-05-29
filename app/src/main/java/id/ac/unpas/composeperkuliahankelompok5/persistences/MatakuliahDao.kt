@@ -6,10 +6,10 @@ import id.ac.unpas.composeperkuliahankelompok5.model.Matakuliah
 
 @Dao
 interface MatakuliahDao {
-    @Query("SELECT * FROM Matakuliah ORDER BY kode ASC")
+    @Query("SELECT * FROM Matakuliah")
     fun loadAll(): LiveData<List<Matakuliah>>
 
-    @Query("SELECT * FROM Matakuliah ORDER BY kode ASC")
+    @Query("SELECT * FROM Matakuliah")
     suspend fun getList(): List<Matakuliah>
 
     @Query("SELECT * FROM Matakuliah WHERE id = :id")
