@@ -16,10 +16,10 @@ import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.message
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.vanpra.composematerialdialogs.title
-import id.ac.unpas.composeperkuliahankelompok5.model.Matakuliah
+import id.ac.unpas.composeperkuliahankelompok5.model.Dosen
 
 @Composable
-fun MatakuliahItem(item: Matakuliah, navController: NavHostController, onDelete: (String) -> Unit) {
+fun DosenItem(item: Dosen, navController: NavHostController, onDelete: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     val subMenus = listOf("Edit", "Delete")
     val confirmationDialogState = rememberMaterialDialogState()
@@ -29,10 +29,10 @@ fun MatakuliahItem(item: Matakuliah, navController: NavHostController, onDelete:
             Column(modifier = Modifier.weight(10f)) {
                 Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
-                        Text(text = "Kode", fontSize = 15.sp)
+                        Text(text = "NIDN", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.kode, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": " + item.nidn, fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
                 Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
@@ -45,31 +45,26 @@ fun MatakuliahItem(item: Matakuliah, navController: NavHostController, onDelete:
                 }
                 Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
-                        Text(text = "SKS", fontSize = 15.sp)
+                        Text(text = "Gelar Depan", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.sks, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": " + item.gelar_depan, fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
                 Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
-                        Text(text = "Praktikum", fontSize = 15.sp)
+                        Text(text = "Gelar Belakang", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        val praktikumText = if (item.praktikum == 1) {
-                            "Ya"
-                        } else {
-                            "Tidak"
-                        }
-                        Text(text = ": $praktikumText", fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": " + item.gelar_belakang, fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
                 Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
-                        Text(text = "Deskripsi", fontSize = 15.sp)
+                        Text(text = "Pendidikan", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.deskripsi, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": " + item.pendidikan, fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -96,7 +91,7 @@ fun MatakuliahItem(item: Matakuliah, navController: NavHostController, onDelete:
                     expanded = false
                     when (s) {
                         "Edit" -> {
-                            navController.navigate("edit-pengelolaan-matakuliah/${item.id}")
+                            navController.navigate("edit-pengelolaan-dosen/${item.id}")
                         }
                         "Delete" -> {
                             confirmationDialogState.show()

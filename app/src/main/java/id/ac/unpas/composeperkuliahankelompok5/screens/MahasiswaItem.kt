@@ -16,60 +16,57 @@ import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.message
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.vanpra.composematerialdialogs.title
-import id.ac.unpas.composeperkuliahankelompok5.model.Matakuliah
+import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa
 
 @Composable
-fun MatakuliahItem(item: Matakuliah, navController: NavHostController, onDelete: (String) -> Unit) {
+fun MahasiswaItem(item: Mahasiswa, navController: NavHostController, onDelete: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     val subMenus = listOf("Edit", "Delete")
     val confirmationDialogState = rememberMaterialDialogState()
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.padding(10.dp).fillMaxWidth()) {
+        Row(modifier = Modifier
+            .padding(10.dp)
+            .fillMaxWidth()) {
             Column(modifier = Modifier.weight(10f)) {
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                Row(modifier = Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
-                        Text(text = "Kode", fontSize = 15.sp)
+                        Text(text = "NPM", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.kode, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": ${item.npm}", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                Row(modifier = Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
                         Text(text = "Nama", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.nama, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": ${item.nama}", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                Row(modifier = Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
-                        Text(text = "SKS", fontSize = 15.sp)
+                        Text(text = "Tanggal Lahir", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.sks, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": ${item.tanggal_lahir}", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                Row(modifier = Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
-                        Text(text = "Praktikum", fontSize = 15.sp)
+                        Text(text = "Jenis Kelamin", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        val praktikumText = if (item.praktikum == 1) {
-                            "Ya"
-                        } else {
-                            "Tidak"
-                        }
-                        Text(text = ": $praktikumText", fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
-                    Column(Modifier.weight(2f)) {
-                        Text(text = "Deskripsi", fontSize = 15.sp)
-                    }
-                    Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.deskripsi, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": ${item.jenis_kelamin}", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -96,7 +93,7 @@ fun MatakuliahItem(item: Matakuliah, navController: NavHostController, onDelete:
                     expanded = false
                     when (s) {
                         "Edit" -> {
-                            navController.navigate("edit-pengelolaan-matakuliah/${item.id}")
+                            navController.navigate("edit-pengelolaan-mahasiswa/${item.id}")
                         }
                         "Delete" -> {
                             confirmationDialogState.show()

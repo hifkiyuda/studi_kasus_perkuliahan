@@ -25,5 +25,5 @@ interface DosenDao {
     fun delete(item: Dosen)
 
     @Query("DELETE FROM Dosen WHERE id = :id")
-    fun delete(id: String)
+    suspend fun delete(id: String)
 }
