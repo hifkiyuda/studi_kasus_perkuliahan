@@ -62,7 +62,7 @@ fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController :
                     }
                     Column(modifier = Modifier.weight(3f)) {
                         Text(text = "Pendidikan", fontSize = 14.sp)
-                        Text(text = item.pendidikan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "${item.pendidikan}", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
                 Divider(modifier = Modifier.fillMaxWidth())

@@ -70,6 +70,21 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(4.dp)
+        ) {
+            Column(){
+                Text(text = "Matakuliah Praktikum?", fontSize = 16.sp)
+            }
+            Checkbox(
+                checked = praktikum.value,
+                onCheckedChange = {
+                    praktikum.value = it
+                }
+            )
+            Text(text = "Ya")
+        }
         OutlinedTextField(
             label = { Text(text = "Deskripsi") },
             value = deskripsi.value,
@@ -80,19 +95,6 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             placeholder = { Text(text = "Masukkan deskripsi") }
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(4.dp)
-        ) {
-            Text(text = "Praktikum", fontSize = 16.sp)
-            Checkbox(
-                checked = praktikum.value,
-                onCheckedChange = {
-                    praktikum.value = it
-                },
-                modifier = Modifier.padding(4.dp)
-            )
-        }
         val simpanButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Purple700,
             contentColor = Teal200
@@ -106,7 +108,6 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
                 if (id == null) {
                     scope.launch {
                         viewModel.insert(kode.value.text, nama.value.text, sks.value, praktikumInt, deskripsi.value.text)
-
                     }
                 } else {
                     scope.launch {
