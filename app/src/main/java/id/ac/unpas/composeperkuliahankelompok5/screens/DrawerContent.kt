@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 fun DrawerContent(onClick: (String) -> Unit)
 {
     val menus = listOf(
+        Menu.HOME,
         Menu.PENGELOLAAN_DOSEN,
         Menu.PENGELOLAAN_MAHASISWA,
         Menu.PENGELOLAAN_MATAKULIAH)
@@ -41,7 +42,7 @@ fun DrawerContent(onClick: (String) -> Unit)
     ) {
         Row (modifier = Modifier.fillMaxWidth().padding(5.dp),
             horizontalArrangement = Arrangement.Center) {
-            Text("Selamat Datang", modifier =
+            Text("Daftar Konten", modifier =
             Modifier.height(32.dp).padding(2.dp),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold)

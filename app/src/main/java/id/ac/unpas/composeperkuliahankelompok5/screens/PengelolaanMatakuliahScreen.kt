@@ -13,9 +13,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,40 +34,26 @@ fun PengelolaanMatakuliahScreen(snackbarHostState: SnackbarHostState, navControl
     val items: List<Matakuliah> by viewModel.list.observeAsState(initial = listOf())
 
     Column(modifier = modifier.fillMaxWidth()) {
-        Button(onClick = {
-            navController.navigate("tambah-pengelolaan-matakuliah")
-        }) {
-            Text(text = "Tambah")
+        Row(verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(10.dp).fillMaxWidth()) {
+            Column(modifier = Modifier.weight(10f)){
+                Text(text = "Halaman Matakuliah", fontSize = 16.sp)
+            }
+            Column(modifier = Modifier.weight(3f)){
+                Button(onClick = {
+                    navController.navigate("tambah-pengelolaan-matakuliah")
+                }) {
+                    Text(text = "Tambah")
+                }
+            }
         }
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(items = items, itemContent = { item ->
-                Row(modifier = Modifier
-                    .padding(15.dp)
-                    .fillMaxWidth().clickable {
-                        navController.navigate("edit-pengelolaan-mahasiswa/${item.id}")
-                    }) {
-                    Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Kode", fontSize = 14.sp)
-                        Text(text = item.kode, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    }
-                    Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Nama", fontSize = 14.sp)
-                        Text(text = item.nama, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    }
-                    Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "SKS", fontSize = 14.sp)
-                        Text(text = item.sks.toString(), fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    }
-                    Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Praktikum", fontSize = 14.sp)
-                        Text(text = item.praktikum.toString(), fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    }
-                    Column(modifier = Modifier.weight(3f)) {
-                        Text(text = "Deskripsi", fontSize = 14.sp)
-                        Text(text = item.deskripsi, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                MatakuliahItem(item = item, navController = navController) {
+                    scope.launch {
+                        viewModel.delete(it)
                     }
                 }
-                Divider(modifier = Modifier.fillMaxWidth())
             })
         }
     }

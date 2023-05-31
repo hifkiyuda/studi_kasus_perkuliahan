@@ -19,10 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import id.ac.unpas.composeperkuliahankelompok5.model.Mahasiswa
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Purple700
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Teal200
 import kotlinx.coroutines.launch
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = null, modifier: Modifier = Modifier) {
@@ -33,10 +37,9 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
     val nama = remember { mutableStateOf(TextFieldValue("")) }
     val tanggalLahir = remember { mutableStateOf(TextFieldValue("")) }
     val jenisKelamin = remember { mutableStateOf(TextFieldValue("")) }
-//    val jenisKelaminOptions = Mahasiswa.JenisKelamin.values()
-//    val selectedJenisKelamin = remember { mutableStateOf(jenisKelaminOptions[0]) }
-//    val expanded = remember { mutableStateOf(false)}
     val scope = rememberCoroutineScope()
+    val tanggalDialogState = rememberMaterialDialogState()
+
     Column( modifier = Modifier
         .padding(10.dp)
         .fillMaxWidth()) {
@@ -65,9 +68,14 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
             onValueChange = {
                 tanggalLahir.value = it
             },
-            modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "yyyy-mm-dd") }
+            modifier = Modifier
+                .padding(4.dp)
+                .fillMaxWidth()
+                .clickable {
+                    tanggalDialogState.show()
+                },
+            placeholder = { Text(text = "yyyy-mm-dd") },
+            enabled = false
         )
         OutlinedTextField(
             label = { Text(text = "Jenis Kelamin") },
@@ -79,29 +87,6 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             placeholder = { Text(text = "Laki-laki/Perempuan") }
         )
-//        OutlinedTextField(
-//            label = { Text(text = "Jenis Kelamin") },
-//            value = selectedJenisKelamin.value.toString(),
-//            onValueChange = { },
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .clickable { expanded.value = true },
-//            readOnly = true
-//        )
-//        DropdownMenu(
-//            expanded = expanded.value,
-//            onDismissRequest = { expanded.value = false},
-//            modifier = Modifier.fillMaxWidth()
-//        ) {
-//            jenisKelaminOptions.forEach{ option ->
-//                DropdownMenuItem(onClick = {
-//                    selectedJenisKelamin.value = option
-//                    expanded.value = false
-//                }) {
-//                    Text(text = option.toString())
-//                }
-//            }
-//        }
         val simpanButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Purple700,
             contentColor = Teal200
@@ -164,6 +149,15 @@ fun FormPencatatanMahasiswa (navController: NavHostController, id: String? = nul
                     jenisKelamin.value = TextFieldValue(mahasiswa.jenis_kelamin)
                 }
             }
+        }
+    }
+    MaterialDialog(dialogState = tanggalDialogState, buttons = {
+        positiveButton("OK")
+        negativeButton("Batal")
+    }) {
+        datepicker { date ->
+            tanggalLahir.value =
+                TextFieldValue(date.format(DateTimeFormatter.ISO_LOCAL_DATE))
         }
     }
 }

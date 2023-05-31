@@ -34,9 +34,6 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
     val gelarDepan = remember { mutableStateOf(TextFieldValue("")) }
     val gelarBelakang = remember { mutableStateOf(TextFieldValue("")) }
     val pendidikan = remember { mutableStateOf(TextFieldValue("")) }
-//    val pendidikanOptions = Dosen.Pendidikan.values()
-//    val selectedPendidikan = remember { mutableStateOf(pendidikanOptions[0]) }
-//    val expanded = remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     Column(modifier = Modifier
@@ -89,29 +86,8 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             },
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "Contoh: S2") }
+            placeholder = { Text(text = "S2/S3") }
         )
-//        OutlinedTextField(
-//            label = { Text(text = "Pendidikan") },
-//            value = selectedPendidikan.value.toString(),
-//            onValueChange = { },
-//            modifier = Modifier.fillMaxWidth().clickable { expanded.value = true },
-//            readOnly = true
-//        )
-//        DropdownMenu(
-//            expanded = expanded.value,
-//            onDismissRequest = { expanded.value = false },
-//            modifier = Modifier.fillMaxWidth()
-//        ) {
-//            pendidikanOptions.forEach { option ->
-//                DropdownMenuItem(onClick = {
-//                    selectedPendidikan.value = option
-//                    expanded.value = false
-//                }) {
-//                    Text(text = option.toString())
-//                }
-//            }
-//        }
         val simpanButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Purple700,
             contentColor = Teal200
@@ -120,7 +96,9 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             backgroundColor = Teal200,
             contentColor = Purple700
         )
-        Row (modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+        Row (modifier = Modifier
+            .padding(4.dp)
+            .fillMaxWidth()) {
             Button(modifier = Modifier.weight(5f), onClick = {
                 if (id == null) {
                     scope.launch {
@@ -172,7 +150,7 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
                     nama.value = TextFieldValue(dosen.nama)
                     gelarDepan.value = TextFieldValue(dosen.gelar_depan)
                     gelarBelakang.value = TextFieldValue(dosen.gelar_belakang)
-                    pendidikan.value = TextFieldValue(dosen.pendidikan)
+                    pendidikan.value =  TextFieldValue(dosen.pendidikan)
                 }
             }
         }

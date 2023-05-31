@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
-import id.ac.unpas.composeperkuliahankelompok5.screens.MatakuliahScreen
+import id.ac.unpas.composeperkuliahankelompok5.screens.MainScreen
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.ComposePerkuliahanKelompok5Theme
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MatakuliahScreen()
+                    MainScreen()
                 }
             }
         }
@@ -34,6 +34,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     ComposePerkuliahanKelompok5Theme {
-        MatakuliahScreen()
+        MainScreen()
     }
 }

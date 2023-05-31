@@ -20,87 +20,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun DosenScreen() {
-    val scope = rememberCoroutineScope()
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
     val title = remember { mutableStateOf("") }
-    val appBarHorizontalPadding = 4.dp
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                backgroundColor = Purple700,
-                elevation = 0.dp,
-                modifier= Modifier.fillMaxWidth()) {
-                //TopAppBar Content
-                Box(Modifier.height(32.dp)) {
-                    Row(
-                        Modifier
-                            .fillMaxHeight()
-                            .width(72.dp - appBarHorizontalPadding), verticalAlignment = Alignment.CenterVertically) {
-                        CompositionLocalProvider(
-                            LocalContentAlpha provides
-                                    ContentAlpha.high,
-                        ) {
-                            IconButton(
-                                onClick = { },
-                                enabled = true,
-                            ) {
-                                Icon(
-                                    Icons.Filled.Menu, null,
-                                    tint = Color.White)
-                            }
-                        }
-                    }
-                    Row(
-                        Modifier.fillMaxSize(),
-                        verticalAlignment =
-                        Alignment.CenterVertically) {
-                        ProvideTextStyle(value =
-                        MaterialTheme.typography.h6) {
-                            CompositionLocalProvider(
-                                LocalContentAlpha provides
-                                        ContentAlpha.high,
-                            ){
-                                Text(
-                                    modifier =
-                                    Modifier.fillMaxWidth(),
-                                    textAlign =
-                                    TextAlign.Center,
-                                    color = Color.White,
-                                    maxLines = 1,
-                                    text = title.value
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        scaffoldState = scaffoldState,
-        snackbarHost = {
-            SnackbarHost(it) { data ->
-                Snackbar(
-                    actionColor = Color.Green,
-                    contentColor = Color.White,
-                    snackbarData = data
-                )
-            }
-        },
-        drawerContent = {
-            DrawerContent { route ->
-                navController.navigate(route)
-                scope.launch {
-                    scaffoldState.drawerState.close()
-                }
-            }
-        },
-        bottomBar = {
-            BottomNavigationComposable(title.value, onClick =
-            { tab ->
-                navController.navigate(tab.route)
-            })
-        },
-    )
+
+    Scaffold()
     { innerPadding ->
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -115,7 +39,6 @@ fun DosenScreen() {
                     MatakuliahScreen()
                 }
                 composable("pengelolaan-dosen") {
-                    title.value = "Pengelolaan Dosen"
                     PengelolaanDosenScreen(navController =
                     navController, snackbarHostState =
                     scaffoldState.snackbarHostState, modifier =
@@ -133,10 +56,7 @@ fun DosenScreen() {
                         }
                     )) { backStackEntry ->
                     title.value = "Edit Pengelolaan Dosen"
-                    val id =
-
-                        backStackEntry.arguments?.getString("id")
-                            ?: return@composable
+                    val id = backStackEntry.arguments?.getString("id") ?: return@composable
                     FormPencatatanDosen(navController =
                     navController, id = id, modifier =
                     Modifier.padding(innerPadding))
