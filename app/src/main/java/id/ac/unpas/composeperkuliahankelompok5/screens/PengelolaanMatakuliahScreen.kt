@@ -39,7 +39,7 @@ fun PengelolaanMatakuliahScreen(snackbarHostState: SnackbarHostState, navControl
             Column(modifier = Modifier.weight(10f)){
                 Text(text = "Halaman Matakuliah", fontSize = 16.sp)
             }
-            Column(modifier = Modifier.weight(3f)){
+            Column(modifier = Modifier.weight(4f)){
                 Button(onClick = {
                     navController.navigate("tambah-pengelolaan-matakuliah")
                 }) {
