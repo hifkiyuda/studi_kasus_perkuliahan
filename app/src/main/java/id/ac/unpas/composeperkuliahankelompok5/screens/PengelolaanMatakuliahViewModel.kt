@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.ac.unpas.composeperkuliahankelompok5.model.Matakuliah
 import id.ac.unpas.composeperkuliahankelompok5.repositories.MatakuliahRepository
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel

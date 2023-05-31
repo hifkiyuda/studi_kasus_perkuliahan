@@ -1,6 +1,5 @@
 package id.ac.unpas.composeperkuliahankelompok5.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import id.ac.unpas.composeperkuliahankelompok5.model.Dosen
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Purple700
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Teal200
 import kotlinx.coroutines.launch

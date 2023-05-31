@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
@@ -84,8 +83,7 @@ fun MatakuliahItem(item: Matakuliah, navController: NavHostController, onDelete:
                     .clickable {
                         expanded = true
                     },
-                contentDescription = null,
-                tint = Color.Unspecified
+                contentDescription = null
             )
         }
         DropdownMenu(

@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
@@ -26,38 +25,48 @@ fun MahasiswaItem(item: Mahasiswa, navController: NavHostController, onDelete: (
     val confirmationDialogState = rememberMaterialDialogState()
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.padding(10.dp).fillMaxWidth()) {
+        Row(modifier = Modifier
+            .padding(10.dp)
+            .fillMaxWidth()) {
             Column(modifier = Modifier.weight(10f)) {
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                Row(modifier = Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
                         Text(text = "NPM", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.npm, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": ${item.npm}", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                Row(modifier = Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
                         Text(text = "Nama", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.nama, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": ${item.nama}", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                Row(modifier = Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
                         Text(text = "Tanggal Lahir", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.tanggal_lahir, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": ${item.tanggal_lahir}", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                Row(modifier = Modifier
+                    .padding(4.dp)
+                    .fillMaxWidth()) {
                     Column(Modifier.weight(2f)) {
                         Text(text = "Jenis Kelamin", fontSize = 15.sp)
                     }
                     Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.jenis_kelamin, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(text = ": ${item.jenis_kelamin}", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -71,8 +80,7 @@ fun MahasiswaItem(item: Mahasiswa, navController: NavHostController, onDelete: (
                     .clickable {
                         expanded = true
                     },
-                contentDescription = null,
-                tint = Color.Unspecified
+                contentDescription = null
             )
         }
         DropdownMenu(
