@@ -25,5 +25,5 @@ interface MahasiswaDao {
     fun delete(item: Mahasiswa)
 
     @Query("DELETE FROM Mahasiswa WHERE id = :id")
-    fun delete(id: String)
+    suspend fun delete(id: String)
 }
