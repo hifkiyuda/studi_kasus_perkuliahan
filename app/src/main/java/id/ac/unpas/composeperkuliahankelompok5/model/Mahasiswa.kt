@@ -10,9 +10,4 @@ data class Mahasiswa(
     val nama: String,
     val tanggal_lahir: String,
     val jenis_kelamin: String
-) {
-//    enum class JenisKelamin {
-//        LAKI_LAKI,
-//        PEREMPUAN
-//    }
-}
+)

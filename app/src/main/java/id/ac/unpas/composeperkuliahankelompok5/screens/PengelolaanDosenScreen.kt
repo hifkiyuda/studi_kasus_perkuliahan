@@ -34,7 +34,7 @@ fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController :
 
     Column(modifier = modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(14.dp).fillMaxWidth()) {
+            modifier = Modifier.padding(10.dp).fillMaxWidth()) {
             Text(text = "Dosen", fontSize = 16.sp)
             IconButton(onClick = {
                 navController.navigate("tambah-pengelolaan-dosen")
@@ -46,7 +46,6 @@ fun PengelolaanDosenScreen(snackbarHostState: SnackbarHostState, navController :
                 )
             }
         }
-        Divider(modifier = Modifier.fillMaxWidth())
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(items = items, itemContent = { item ->
                 DosenItem(item = item, navController = navController) {

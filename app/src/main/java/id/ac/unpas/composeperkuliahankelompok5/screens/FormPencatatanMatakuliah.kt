@@ -1,5 +1,6 @@
 package id.ac.unpas.composeperkuliahankelompok5.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -34,6 +36,7 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
     val praktikumInt = praktikum.value.toInt()
     val deskripsi = remember { mutableStateOf(TextFieldValue("")) }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     Column( modifier = Modifier
         .padding(10.dp)
@@ -67,9 +70,19 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
             modifier = Modifier.padding(4.dp).fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         )
+        OutlinedTextField(
+            label = { Text(text = "Deskripsi") },
+            value = deskripsi.value,
+            onValueChange = {
+                deskripsi.value = it
+            },
+            modifier = Modifier.padding(4.dp).fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            placeholder = { Text(text = "Masukkan deskripsi") }
+        )
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(4.dp)
+            modifier = Modifier.padding(4.dp, top = 8.dp, bottom = 10.dp)
         ) {
             Column(){
                 Text(text = "Matakuliah Praktikum?", fontSize = 16.sp)
@@ -82,16 +95,6 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
             )
             Text(text = "Ya")
         }
-        OutlinedTextField(
-            label = { Text(text = "Deskripsi") },
-            value = deskripsi.value,
-            onValueChange = {
-                deskripsi.value = it
-            },
-            modifier = Modifier.padding(4.dp).fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            placeholder = { Text(text = "Masukkan deskripsi") }
-        )
         val simpanButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Purple700,
             contentColor = Teal200
@@ -102,16 +105,22 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
         )
         Row (modifier = Modifier.padding(4.dp).fillMaxWidth()) {
             Button(modifier = Modifier.weight(5f), onClick = {
-                if (id == null) {
-                    scope.launch {
-                        viewModel.insert(kode.value.text, nama.value.text, sks.value, praktikumInt, deskripsi.value.text)
+                if (kode.value.text.isNotBlank()
+                    && nama.value.text.isNotBlank()
+                    && deskripsi.value.text.isNotBlank()) {
+                    if (id == null) {
+                        scope.launch {
+                            viewModel.insert(kode.value.text, nama.value.text, sks.value, praktikumInt, deskripsi.value.text)
+                        }
+                    } else {
+                        scope.launch {
+                            viewModel.update(id, kode.value.text, nama.value.text, sks.value, praktikumInt, deskripsi.value.text)
+                        }
                     }
+                    navController.navigate("pengelolaan-matakuliah")
                 } else {
-                    scope.launch {
-                        viewModel.update(id, kode.value.text, nama.value.text, sks.value, praktikumInt, deskripsi.value.text)
-                    }
+                    Toast.makeText(context, "Silakan isi kolom yang masih kosong", Toast.LENGTH_LONG).show()
                 }
-                navController.navigate("pengelolaan-matakuliah")
             }, colors = simpanButtonColors) {
                 Text(
                     text = buttonLabel,

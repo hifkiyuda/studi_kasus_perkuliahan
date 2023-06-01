@@ -46,7 +46,6 @@ fun PengelolaanMatakuliahScreen(snackbarHostState: SnackbarHostState, navControl
                 )
             }
         }
-        Divider(modifier = Modifier.fillMaxWidth())
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(items = items, itemContent = { item ->
                 MatakuliahItem(item = item, navController = navController) {

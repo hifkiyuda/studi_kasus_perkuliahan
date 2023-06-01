@@ -2,6 +2,7 @@ package id.ac.unpas.composeperkuliahankelompok5.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -25,85 +26,91 @@ fun DosenItem(item: Dosen, navController: NavHostController, onDelete: (String) 
     val confirmationDialogState = rememberMaterialDialogState()
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.padding(10.dp).fillMaxWidth()) {
-            Column(modifier = Modifier.weight(10f)) {
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
-                    Column(Modifier.weight(2f)) {
-                        Text(text = "NIDN", fontSize = 15.sp)
+        Card(
+            shape = RoundedCornerShape(4.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ){
+            Row(modifier = Modifier.padding(10.dp).fillMaxWidth()) {
+                Column(modifier = Modifier.weight(10f)) {
+                    Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                        Column(Modifier.weight(2f)) {
+                            Text(text = "NIDN", fontSize = 15.sp)
+                        }
+                        Column(Modifier.weight(6f)) {
+                            Text(text = ": " + item.nidn, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        }
                     }
-                    Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.nidn, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                    Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                        Column(Modifier.weight(2f)) {
+                            Text(text = "Nama", fontSize = 15.sp)
+                        }
+                        Column(Modifier.weight(6f)) {
+                            Text(text = ": " + item.nama, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                    Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                        Column(Modifier.weight(2f)) {
+                            Text(text = "Gelar Depan", fontSize = 15.sp)
+                        }
+                        Column(Modifier.weight(6f)) {
+                            Text(text = ": " + item.gelar_depan, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                    Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                        Column(Modifier.weight(2f)) {
+                            Text(text = "Gelar Belakang", fontSize = 15.sp)
+                        }
+                        Column(Modifier.weight(6f)) {
+                            Text(text = ": " + item.gelar_belakang, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                    Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
+                        Column(Modifier.weight(2f)) {
+                            Text(text = "Pendidikan", fontSize = 15.sp)
+                        }
+                        Column(Modifier.weight(6f)) {
+                            Text(text = ": " + item.pendidikan, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        }
                     }
                 }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
-                    Column(Modifier.weight(2f)) {
-                        Text(text = "Nama", fontSize = 15.sp)
-                    }
-                    Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.nama, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
-                    Column(Modifier.weight(2f)) {
-                        Text(text = "Gelar Depan", fontSize = 15.sp)
-                    }
-                    Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.gelar_depan, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
-                    Column(Modifier.weight(2f)) {
-                        Text(text = "Gelar Belakang", fontSize = 15.sp)
-                    }
-                    Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.gelar_belakang, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
-                Row(modifier = Modifier.padding(4.dp).fillMaxWidth()) {
-                    Column(Modifier.weight(2f)) {
-                        Text(text = "Pendidikan", fontSize = 15.sp)
-                    }
-                    Column(Modifier.weight(6f)) {
-                        Text(text = ": " + item.pendidikan, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
+                Icon(
+                    Icons.Default.MoreVert,
+                    modifier = Modifier
+                        .height(40.dp)
+                        .width(40.dp)
+                        .padding(8.dp)
+                        .weight(1f, true)
+                        .clickable {
+                            expanded = true
+                        },
+                    contentDescription = null
+                )
             }
-            Icon(
-                Icons.Default.MoreVert,
-                modifier = Modifier
-                    .height(40.dp)
-                    .width(40.dp)
-                    .padding(8.dp)
-                    .weight(1f, true)
-                    .clickable {
-                        expanded = true
-                    },
-                contentDescription = null
-            )
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            offset = DpOffset(x = (250).dp, y = (-150).dp)
-        ) {
-            subMenus.forEachIndexed { _, s ->
-                DropdownMenuItem(onClick = {
-                    expanded = false
-                    when (s) {
-                        "Edit" -> {
-                            navController.navigate("edit-pengelolaan-dosen/${item.id}")
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                offset = DpOffset(x = (250).dp, y = (-150).dp)
+            ) {
+                subMenus.forEachIndexed { _, s ->
+                    DropdownMenuItem(onClick = {
+                        expanded = false
+                        when (s) {
+                            "Edit" -> {
+                                navController.navigate("edit-pengelolaan-dosen/${item.id}")
+                            }
+                            "Delete" -> {
+                                confirmationDialogState.show()
+                            }
                         }
-                        "Delete" -> {
-                            confirmationDialogState.show()
-                        }
+                    }) {
+                        Text(text = s)
                     }
-                }) {
-                    Text(text = s)
                 }
             }
         }
     }
-    Divider(modifier = Modifier.fillMaxWidth())
     MaterialDialog(dialogState = confirmationDialogState,
         buttons = {
             positiveButton("Ya", onClick = {

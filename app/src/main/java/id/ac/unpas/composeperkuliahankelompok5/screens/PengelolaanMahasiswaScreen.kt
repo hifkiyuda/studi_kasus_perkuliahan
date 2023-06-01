@@ -46,7 +46,6 @@ fun PengelolaanMahasiswaScreen(snackbarHostState: SnackbarHostState, navControll
                 )
             }
         }
-        Divider(modifier = Modifier.fillMaxWidth())
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(items = items, itemContent = { item ->
                 MahasiswaItem(item = item, navController = navController) {
