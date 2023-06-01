@@ -47,8 +47,7 @@ fun DrawerContent(onClick: (String) -> Unit)
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold)
         }
-        Divider(startIndent = 8.dp, thickness = 1.dp, color =
-        Color.Black)
+        Divider(startIndent = 8.dp, thickness = 1.dp, color = Color.Black)
         LazyColumn(
             state = listState,
             contentPadding = PaddingValues(0.dp)
@@ -58,8 +57,7 @@ fun DrawerContent(onClick: (String) -> Unit)
                     shape = RoundedCornerShape(4.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(5.dp),
-                    contentColor = Color.Black
+                        .padding(5.dp)
                 ) {
                     Row (modifier =
                     Modifier.padding(5.dp).clickable {
@@ -69,8 +67,7 @@ fun DrawerContent(onClick: (String) -> Unit)
                             menu.icon,
                             modifier =
                             Modifier.height(32.dp).width(32.dp),
-                            contentDescription = null,
-                            tint = Color.Unspecified
+                            contentDescription = null
                         )
                         Text(
                             stringResource(id = menu.title),

@@ -11,9 +11,4 @@ data class Dosen(
     val gelar_depan: String,
     val gelar_belakang: String,
     val pendidikan: String
-) {
-//    enum class Pendidikan {
-//        S2,
-//        S3
-//    }
-}
+)
