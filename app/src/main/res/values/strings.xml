@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Compose Perkuliahan Kelompok 5</string>
+    <string name="app_name">Perkuliahan App</string>
     <string name="home">Home</string>
     <string name="pengelolaan_dosen">Dosen</string>
     <string name="pengelolaan_mahasiswa">Mahasiswa</string>
