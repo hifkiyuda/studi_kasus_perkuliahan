@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Purple700
-import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Teal200
+import id.ac.unpas.composeperkuliahankelompok5.ui.theme.LightRed
+import id.ac.unpas.composeperkuliahankelompok5.ui.theme.LightBlue
 import kotlinx.coroutines.launch
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.LocalContext
@@ -130,12 +130,12 @@ fun FormPencatatanDosen (navController: NavHostController, id: String? = null, m
             }
         }
         val simpanButtonColors = ButtonDefaults.buttonColors(
-            backgroundColor = Purple700,
-            contentColor = Teal200
+            backgroundColor = LightRed,
+            contentColor = LightBlue
         )
         val resetButtonColors = ButtonDefaults.buttonColors(
-            backgroundColor = Teal200,
-            contentColor = Purple700
+            backgroundColor = LightBlue,
+            contentColor = LightRed
         )
         Row (modifier = Modifier
             .padding(4.dp)

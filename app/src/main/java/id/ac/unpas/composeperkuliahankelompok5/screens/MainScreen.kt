@@ -15,7 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Purple700
+import id.ac.unpas.composeperkuliahankelompok5.ui.theme.LightRed
 import kotlinx.coroutines.launch
 
 @Composable
@@ -28,7 +28,7 @@ fun MainScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Purple700,
+                backgroundColor = LightRed,
                 elevation = 0.dp,
                 modifier= Modifier.fillMaxWidth()) {
                 //TopAppBar Content

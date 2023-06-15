@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Purple700
-import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Teal200
+import id.ac.unpas.composeperkuliahankelompok5.ui.theme.LightRed
+import id.ac.unpas.composeperkuliahankelompok5.ui.theme.LightBlue
 import kotlinx.coroutines.launch
 
 @Composable
@@ -96,12 +96,12 @@ fun FormPencatatanMatakuliah (navController: NavHostController, id: String? = nu
             Text(text = "Ya")
         }
         val simpanButtonColors = ButtonDefaults.buttonColors(
-            backgroundColor = Purple700,
-            contentColor = Teal200
+            backgroundColor = LightRed,
+            contentColor = LightBlue
         )
         val resetButtonColors = ButtonDefaults.buttonColors(
-            backgroundColor = Teal200,
-            contentColor = Purple700
+            backgroundColor = LightBlue,
+            contentColor = LightRed
         )
         Row (modifier = Modifier.padding(4.dp).fillMaxWidth()) {
             Button(modifier = Modifier.weight(5f), onClick = {
