@@ -10,9 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import id.ac.unpas.composeperkuliahankelompok5.ui.theme.Purple700
 import kotlinx.coroutines.launch
 
@@ -108,16 +110,76 @@ fun MainScreen() {
                 startDestination = "home") {
                 composable("pengelolaan-dosen") {
                     title.value = "Pengelolaan Perkuliahan"
-                    DosenScreen()
+                    PengelolaanDosenScreen(navController =
+                    navController, snackbarHostState =
+                    scaffoldState.snackbarHostState )
                 }
+                composable("tambah-pengelolaan-dosen") {
+                    title.value = "Tambah Pengelolaan Dosen"
+                    FormPencatatanDosen(navController =
+                    navController, modifier = Modifier.padding(innerPadding))
+                }
+                composable("edit-pengelolaan-dosen/{id}",
+                    listOf(
+                        navArgument("id") {
+                            type = NavType.StringType
+                        }
+                    )) { backStackEntry ->
+                    title.value = "Edit Pengelolaan Dosen"
+                    val id = backStackEntry.arguments?.getString("id") ?: return@composable
+                    FormPencatatanDosen(navController =
+                    navController, id = id, modifier =
+                    Modifier.padding(innerPadding))
+                }
+
                 composable("pengelolaan-mahasiswa") {
                     title.value = "Pengelolaan Perkuliahan"
-                    MahasiswaScreen()
+                    PengelolaanMahasiswaScreen(navController =
+                    navController, snackbarHostState =
+                    scaffoldState.snackbarHostState)
                 }
+                composable("tambah-pengelolaan-mahasiswa") {
+                    title.value = "Tambah Pengelolaan Mahasiswa"
+                    FormPencatatanMahasiswa(navController =
+                    navController, modifier = Modifier.padding(innerPadding))
+                }
+                composable("edit-pengelolaan-mahasiswa/{id}",
+                    listOf(
+                        navArgument("id") {
+                            type = NavType.StringType
+                        }
+                    )) { backStackEntry ->
+                    title.value = "Edit Pengelolaan Mahasiswa"
+                    val id = backStackEntry.arguments?.getString("id") ?: return@composable
+                    FormPencatatanMahasiswa(navController =
+                    navController, id = id, modifier =
+                    Modifier.padding(innerPadding))
+                }
+
                 composable("pengelolaan-matakuliah") {
                     title.value = "Pengelolaan Perkuliahan"
-                    MatakuliahScreen()
+                    PengelolaanMatakuliahScreen(navController =
+                    navController, snackbarHostState =
+                    scaffoldState.snackbarHostState)
                 }
+                composable("tambah-pengelolaan-matakuliah") {
+                    title.value = "Tambah Pengelolaan Matakuliah"
+                    FormPencatatanMatakuliah(navController =
+                    navController, modifier = Modifier.padding(innerPadding))
+                }
+                composable("edit-pengelolaan-matakuliah/{id}",
+                    listOf(
+                        navArgument("id") {
+                            type = NavType.StringType
+                        }
+                    )) { backStackEntry ->
+                    title.value = "Edit Pengelolaan Matakuliah"
+                    val id = backStackEntry.arguments?.getString("id") ?: return@composable
+                    FormPencatatanMatakuliah(navController =
+                    navController, id = id, modifier =
+                    Modifier.padding(innerPadding))
+                }
+
                 composable("home") {
                     title.value = "Pengelolaan Perkuliahan"
                     HomeScreen()
