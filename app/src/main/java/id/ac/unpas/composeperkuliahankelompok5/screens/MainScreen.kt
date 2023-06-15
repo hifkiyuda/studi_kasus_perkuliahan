@@ -107,12 +107,15 @@ fun MainScreen() {
             NavHost(navController = navController,
                 startDestination = "home") {
                 composable("pengelolaan-dosen") {
+                    title.value = "Pengelolaan Perkuliahan"
                     DosenScreen()
                 }
                 composable("pengelolaan-mahasiswa") {
+                    title.value = "Pengelolaan Perkuliahan"
                     MahasiswaScreen()
                 }
                 composable("pengelolaan-matakuliah") {
+                    title.value = "Pengelolaan Perkuliahan"
                     MatakuliahScreen()
                 }
                 composable("home") {

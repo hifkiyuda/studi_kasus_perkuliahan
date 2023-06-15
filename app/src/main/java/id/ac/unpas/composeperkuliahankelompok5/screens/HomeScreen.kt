@@ -27,9 +27,22 @@ fun HomeScreen() {
             Row(verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(14.dp).fillMaxWidth()) {
                 Column(modifier = Modifier.weight(10f)){
-                    Text(text = "Kelompok 5:", fontSize = 16.sp)
+                    Text(text = "Kelompok 5", fontSize = 16.sp)
+                }
+            }
+        }
+
+        Card(
+            shape = RoundedCornerShape(4.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ){
+            Row(verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(14.dp).fillMaxWidth()) {
+                Column(modifier = Modifier.weight(10f)){
                     Text(text = "203040071 - Hifki Yuda Pratama", fontSize = 16.sp)
-                    Text(text = "203040068 - Muhammad Fazril Fuady Hermawan", fontSize = 16.sp)
+                    Text(text = "203040068 - Muhammad Fazril F H", fontSize = 16.sp)
                     Text(text = "203040078 - Siti Komalasari", fontSize = 16.sp)
                     Text(text = "203040070 - Priyandi Zembar Azizi", fontSize = 16.sp)
                     Text(text = "203040087 - Hamzah Hadi Permana", fontSize = 16.sp)
